@@ -1,0 +1,46 @@
+cd -> change directory -> move to a different folder
+cd .. -> change directory -> go up one level
+pwd -> present working directory -> current location
+ls -> list -> files or folders within current directory
+mkdir -> make directory -> make new folder
+touch -> touch a file -> if non-existent create file
+
+ctrl + c => break through a program (so I can run a new command)
+mv -> move -> move a filetou
+rm -> remove -> permanently delete
+rmdir -> remove directory -> delete folder
+        -rf -- flags
+        r -> recursive -> delete files inside it
+        f -> force
+
+. => current folder
+.. => up a level
+
+Search for help "Ruby [subject] Api"
+
+# Before
+gets.chomp
+$stdin.gets.chomp - with ARGV
+# add
+$stdout.flush
+
+def function_name(parameters)
+        return
+end
+
+If statements
+
+if _____
+        code
+elsif ___
+        code
+else
+        code
+end
+
+&& Both need to be true
+|| either or
+==
+!=
+>=
+<=
