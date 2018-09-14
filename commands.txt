@@ -16,6 +16,8 @@ rmdir -> remove directory -> delete folder
 . => current folder
 .. => up a level
 
+ctrl + d => grabs all the same words in a code multible curses to fix mistakes.
+
 Search for help "Ruby [subject] Api"
 
 # Before
