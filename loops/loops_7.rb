@@ -1,5 +1,4 @@
 def upgrade_pig_latin(word)
-    characters = word.split(//)
     found = false
     place = 0
     while !(found)
