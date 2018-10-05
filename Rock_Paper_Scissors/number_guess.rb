@@ -13,6 +13,7 @@ def pick_player_guess()
 
     while !valid_guess?(guess)
         puts "\nGuess a number between 1 and 1000"
+        puts "Please insert a valid input"
         $stdout.flush
         guess = gets.chomp.to_i
     end
