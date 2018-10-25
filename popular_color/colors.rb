@@ -53,14 +53,10 @@ puts find_total(names, fav, sec_fav, "white")
 def most_popular_color(names, fav, sec_fav)
     best_match = 0
     most_popular_color = ""
-    fav.each do |x|
+    all_colors = fav + sec_fav
+    all_colors.each do |x|
         match = 0
-        fav.each do |y|
-            if x == y
-                match += 1
-            end
-        end
-        sec_fav.each do |y|
+        all_colors.each do |y|
             if x == y
                 match += 1
             end
