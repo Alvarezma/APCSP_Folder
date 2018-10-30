@@ -54,15 +54,15 @@ def most_popular_color(names, fav, sec_fav)
     best_match = 0
     most_popular_color = ""
     all_colors = fav + sec_fav
-    all_colors.each do |x|
+    all_colors.each do |current_color|
         match = 0
-        all_colors.each do |y|
-            if x == y
+        all_colors.each do |test_color|
+            if current_color == test_color
                 match += 1
             end
         end
         if match > best_match
-            most_popular_color = x
+            most_popular_color = current_color
             best_match = match
         end
     end
