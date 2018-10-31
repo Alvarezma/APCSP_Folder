@@ -96,3 +96,25 @@ def chose_most_pop_color(names, fav, sec_fav)
 end
 
 puts chose_most_pop_color(names, fav, sec_fav)
+
+def most_popular_combo(names, fav, sec_fav)
+    combo = ""
+    best_match = 0
+    names.length.times do |i|  
+        match = 0
+        current_combo = "#{fav[i]},#{sec_fav[i]}"
+        names.length.times do |i|  
+            test_combo = "#{fav[i]},#{sec_fav[i]}"
+            if current_combo == test_combo
+                match += 1
+            end
+        end
+        if match > best_match
+            combo = current_combo
+            best_match = match
+        end
+    end
+    return combo
+end
+
+puts most_popular_combo(names, fav, sec_fav)
