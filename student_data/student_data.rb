@@ -4,11 +4,13 @@ lines = open("./student_data.csv").read.split(/\n/)
 names = []
 eye_colors = []
 ages = []
+blood_type = []
 lines.each do |n|
     data = n.split(',')
     names.push(data[0])
     eye_colors.push(data[1])
     ages.push(data[2])
+    blood_type.push(data[3])
 end
 
 def num_of_brown_eyes(eye_colors)
@@ -126,3 +128,61 @@ end
 puts closest_to_avg_green_age(names, eye_colors, ages)
 puts ""
 
+def name_the_donors(names, blood_type, recipient_name)
+    donators = []
+    recipient_blood = find_blood_type(names, blood_type, recipient_name)
+    
+    names.length.times do |i|
+        if names[i] != recipient_name
+            if recipient_blood == "O" && blood_type[i] == "O"
+                donators.push(names[i])
+            elsif recipient_blood == "A" && (blood_type[i] == "A" || blood_type[i] == "O")
+                donators.push(names[i])
+            elsif recipient_blood == "B" && (blood_type[i] == "B" || blood_type[i] == "O")
+                donators.push(names[i])
+            elsif recipient_blood == "AB"
+                donators.push(names[i])
+            end
+        end
+    end
+
+    return donators
+end
+
+def find_blood_type(names, blood_type, target_name)
+    names.length.times do |i|
+        if names[i] == target_name
+            return blood_type[i]
+        end
+    end
+end
+
+puts name_the_donors(names, blood_type, "Zed")
+puts ""
+
+def most_blood_donors(names, blood_type)
+    those_with_most_donors = []
+    best_num_of_donors = 0
+
+    names.each do |n|
+        num_of_donators = 0
+
+        donators = name_the_donors(names, blood_type, n)
+        num_of_donators = donators.length
+
+        if num_of_donators > best_num_of_donors
+            those_with_most_donors = []
+            those_with_most_donors.push(n)
+            
+            best_num_of_donors = num_of_donators
+        elsif num_of_donators == best_num_of_donors
+            those_with_most_donors.push(n)
+        end
+    end
+
+    those_with_most_donors.push(best_num_of_donors)
+    return those_with_most_donors
+end
+
+puts most_blood_donors(names, blood_type)
+puts ""
