@@ -13,6 +13,8 @@ lines.each do |n|
     blood_type.push(data[3])
 end
 
+# Problem 0
+
 def num_of_brown_eyes(eye_colors)
     count = 0
     eye_colors.each do |n|
@@ -26,6 +28,8 @@ end
 puts num_of_brown_eyes(eye_colors)
 puts ""
 
+# Problem 1
+
 def old_enough_to_drive(names, ages)
     students = []
     ages.length.times do |i|
@@ -36,8 +40,11 @@ def old_enough_to_drive(names, ages)
     return students
 end
 
+
 puts old_enough_to_drive(names, ages)
 puts ""
+
+# Problem 2
 
 def green_eyed_girls(names, eye_colors)
     green_eyed_girls = []
@@ -53,6 +60,8 @@ end
 
 puts green_eyed_girls(names, eye_colors)
 puts ""
+
+# Problem 3
 
 def sophomore_vowels(names, ages)
     champion = ""
@@ -84,6 +93,8 @@ end
 puts sophomore_vowels(names, ages)
 puts ""
 
+# Problem 4
+
 def avg_age_green_eyed_students(eye_colors, ages)
     green_eyed_ages = []
     eye_colors.length.times do |i|
@@ -102,6 +113,8 @@ end
 
 puts avg_age_green_eyed_students(eye_colors, ages)
 puts ""
+
+# Problem 5
 
 def closest_to_avg_green_age(names, eye_colors, ages)
     closest = []
@@ -127,6 +140,8 @@ end
 
 puts closest_to_avg_green_age(names, eye_colors, ages)
 puts ""
+
+# Problem 6
 
 def name_the_donors(names, blood_type, recipient_name)
     donators = []
@@ -159,6 +174,8 @@ end
 
 puts name_the_donors(names, blood_type, "Zed")
 puts ""
+
+# Problem 7
 
 def most_blood_donors(names, blood_type)
     those_with_most_donors = []
