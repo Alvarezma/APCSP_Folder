@@ -182,22 +182,18 @@ def most_blood_donors(names, blood_type)
     best_num_of_donors = 0
 
     names.each do |n|
-        num_of_donators = 0
-
         donators = name_the_donors(names, blood_type, n)
-        num_of_donators = donators.length
 
-        if num_of_donators > best_num_of_donors
+        if donators.length > best_num_of_donors
             those_with_most_donors = []
             those_with_most_donors.push(n)
             
-            best_num_of_donors = num_of_donators
-        elsif num_of_donators == best_num_of_donors
+            best_num_of_donors = donators.length
+        elsif donators.length == best_num_of_donors
             those_with_most_donors.push(n)
         end
     end
 
-    those_with_most_donors.push(best_num_of_donors)
     return those_with_most_donors
 end
 
