@@ -1,4 +1,5 @@
 require "gosu"
+require "./z_order"
 
 class Player
 
@@ -33,17 +34,24 @@ class Player
         @velocity_y += Gosu.offset_y(@angle, 0.5)
     end
 
+    def backwards
+        @velocity_x -= Gosu.offset_x(@angle, 0.5)
+        @velocity_y -= Gosu.offset_y(@angle, 0.5)
+    end
+
     def move
         @x += @velocity_x
         @y += @velocity_y
 
-        @x %= 640
-        @y %= 480
-        @vel_x
+        @x %= 800
+        @y %= 375
+
+        @velocity_x *= 0.95
+        @velocity_y *= 0.95
     end
 
     def draw
-
+        @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.03, 0.03)
     end
 
 end
