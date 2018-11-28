@@ -7,6 +7,8 @@ class Player
     #-----------
     # x, y, angle, velocity_x, velocity_y, image, score
 
+    attr_reader :score
+
     # Ablities (functions)
     #---------
 
@@ -43,8 +45,8 @@ class Player
         @x += @velocity_x
         @y += @velocity_y
 
-        @x %= 800
-        @y %= 375
+        @x %= 1600
+        @y %= 800
 
         @velocity_x *= 0.95
         @velocity_y *= 0.95
@@ -52,6 +54,12 @@ class Player
 
     def draw
         @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.03, 0.03)
+    end
+
+    def collect_star(stars)
+        stars.reject! do |star|
+            Gosu.distance(@x, @y, star.x, star.y) < 50
+        end
     end
 
 end
