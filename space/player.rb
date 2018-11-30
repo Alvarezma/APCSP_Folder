@@ -14,6 +14,7 @@ class Player
 
     def initialize
         @image = Gosu::Image.new("media/spaceship.png")
+        @beep = Gosu::Sample.new("media/score_sound.wav")
         @x = @y = @velocity_x = @velocity_y = @angle = 0.0
         @score = 0
     end
@@ -58,7 +59,13 @@ class Player
 
     def collect_star(stars)
         stars.reject! do |star|
-            Gosu.distance(@x, @y, star.x, star.y) < 50
+            if Gosu.distance(@x, @y, star.x, star.y) < 50
+                @score += 10
+                @beep.play
+                true
+            else
+                false
+            end
         end
     end
 
