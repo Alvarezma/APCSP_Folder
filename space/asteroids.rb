@@ -1,6 +1,7 @@
 require "gosu"
 require "./player"
 require "./star"
+require "./meteor"
 require "./z_order"
 
 class Asteroids < Gosu::Window
@@ -24,6 +25,14 @@ class Asteroids < Gosu::Window
             @stars.push(Star.new)
         end
 
+        @meteors = []
+
+        @max_meteors = 2
+
+        @max_meteors.times do |i|
+            @meteors.push(Meteor.new)
+        end
+
         @counter = 0
     end
 
@@ -43,15 +52,24 @@ class Asteroids < Gosu::Window
         
         @player.move
         @player.collect_star(@stars)
-        repawn_star
+        @player.hit_meteor(@meteors)
+
+        if !@player.alive
+            puts "dead"
+        end
         
-        # if @counter % 600 == 0
-        #     @stars.each do |star|
-        #         star.update
-        #     end
-        # end
+        if @counter % 1000 == 0
+            @stars.each do |star|
+                star.update
+            end
+            repawn_star
+        end
+
+        @meteors.each do |meteor|
+            meteor.move
+        end
         
-        # @counter += 1
+        @counter += 1
         
     end
     
@@ -62,7 +80,11 @@ class Asteroids < Gosu::Window
             star.draw
         end
 
-        if @stars.length == 5
+        @meteors.each do |meteor|
+            meteor.draw
+        end
+
+        if @stars.length == 0
             @finish_image.draw(544, 144, ZOrder::UI)
             @font.draw("Final Score: #{@player.score}", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
         else
@@ -71,7 +93,7 @@ class Asteroids < Gosu::Window
     end
 
     def repawn_star
-        if @stars.length < @max_stars
+        if @stars.length < @max_stars && @stars.length != 0
             @stars.push(Star.new)
         end
     end

@@ -7,7 +7,7 @@ class Player
     #-----------
     # x, y, angle, velocity_x, velocity_y, image, score
 
-    attr_reader :score
+    attr_reader :score, :alive
 
     # Ablities (functions)
     #---------
@@ -15,8 +15,10 @@ class Player
     def initialize
         @image = Gosu::Image.new("media/spaceship.png")
         @beep = Gosu::Sample.new("media/score_sound.wav")
+        @explode = Gosu::Sample.new("media/explosion.wav")
         @x = @y = @velocity_x = @velocity_y = @angle = 0.0
         @score = 0
+        @alive = true
     end
 
     def warp(x, y)
@@ -65,6 +67,15 @@ class Player
                 true
             else
                 false
+            end
+        end
+    end
+
+    def hit_meteor(meteors)
+        meteors.each do |meteor|
+            if Gosu.distance(@x, @y, meteor.x, meteor.y) < 50
+                @explode.play
+                @alive = false
             end
         end
     end

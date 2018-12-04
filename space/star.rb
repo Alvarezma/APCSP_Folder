@@ -33,9 +33,9 @@ class Star
         # green 0 -> 255
         # blue  0 -> 255
         @color = Gosu::Color::BLACK.dup
-        @color.red   = rand * (256 - 40) + 40
-        @color.green = rand * (256 - 40) + 40
-        @color.blue  = rand * (256 - 40) + 40
+        @color.red   = rand * (256 - 80) + 80
+        @color.green = rand * (256 - 80) + 80
+        @color.blue  = rand * (256 - 80) + 80
     end
 
     def update_position
