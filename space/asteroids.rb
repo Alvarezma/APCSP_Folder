@@ -11,7 +11,8 @@ class Asteroids < Gosu::Window
         self.caption = "Asteroids Game"
 
         @background_image = Gosu::Image.new("media/background.jpg", :tileable => true)
-        @finish_image = Gosu::Image.new("media/win.png")
+        @win_image = Gosu::Image.new("media/win.png")
+        @lose_image = Gosu::Image.new("media/lose.png")
         @font = Gosu::Font.new(20)
 
         @player = Player.new
@@ -27,7 +28,7 @@ class Asteroids < Gosu::Window
 
         @meteors = []
 
-        @max_meteors = 2
+        @max_meteors = 20
 
         @max_meteors.times do |i|
             @meteors.push(Meteor.new)
@@ -37,39 +38,53 @@ class Asteroids < Gosu::Window
     end
 
     def update
-        if Gosu.button_down?(Gosu::KB_LEFT)
-            @player.turn_left
-        end
-        if Gosu.button_down?(Gosu::KB_RIGHT)
-            @player.turn_right
-        end
-        if Gosu.button_down?(Gosu::KB_UP)
-            @player.accelerate
-        end
-        if Gosu.button_down?(Gosu::KB_DOWN)
-            @player.backwards
-        end
-        
-        @player.move
-        @player.collect_star(@stars)
-        @player.hit_meteor(@meteors)
+        if @player.alive && @stars.length > 0 
+            if Gosu.button_down?(Gosu::KB_LEFT)
+                @player.turn_left
+            end
+            if Gosu.button_down?(Gosu::KB_RIGHT)
+                @player.turn_right
+            end
+            if Gosu.button_down?(Gosu::KB_UP)
+                @player.accelerate
+            end
+            if Gosu.button_down?(Gosu::KB_DOWN)
+                @player.backwards
+            end
+            
+            @player.move
+            @player.collect_star(@stars)
+            @player.hit_meteor(@meteors)
 
-        if !@player.alive
-            puts "dead"
-        end
-        
-        if @counter % 1000 == 0
+            
+            if @counter % 1000 == 0
+                @stars.each do |star|
+                    star.update
+                end
+                repawn_star
+            end
+
+            @meteors.each do |meteor|
+                meteor.move
+            end
+            
+            @counter += 1
+        elsif Gosu.button_down?(Gosu::KB_SPACE)
+            @player.restart
+
+            (@max_stars - @stars.length).times do |i|
+                @stars.push(Star.new)
+            end
+
             @stars.each do |star|
                 star.update
             end
-            repawn_star
-        end
 
-        @meteors.each do |meteor|
-            meteor.move
+            @meteors.each do |meteor|
+                meteor.update
+            end
+            @count = 0
         end
-        
-        @counter += 1
         
     end
     
@@ -85,8 +100,11 @@ class Asteroids < Gosu::Window
         end
 
         if @stars.length == 0
-            @finish_image.draw(544, 144, ZOrder::UI)
+            @win_image.draw(544, 144, ZOrder::UI)
             @font.draw("Final Score: #{@player.score}", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
+        elsif @player.alive == false
+            @lose_image.draw(648, 265, ZOrder::UI)
+            @font.draw("Final Score: #{@player.score}\nPress space to restart", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
         else
             @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
         end

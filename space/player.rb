@@ -14,11 +14,19 @@ class Player
 
     def initialize
         @image = Gosu::Image.new("media/spaceship.png")
+        @dead_image = Gosu::Image.new("media/dead_spaceship.png")
         @beep = Gosu::Sample.new("media/score_sound.wav")
         @explode = Gosu::Sample.new("media/explosion.wav")
         @x = @y = @velocity_x = @velocity_y = @angle = 0.0
         @score = 0
         @alive = true
+    end
+
+    def restart
+        @score = 0
+        @alive = true
+        @velocity_x = @velocity_y = @angle = 0.0
+        warp(800, 400)
     end
 
     def warp(x, y)
@@ -56,7 +64,11 @@ class Player
     end
 
     def draw
-        @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.03, 0.03)
+        if alive
+            @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.03, 0.03)
+        else
+            @dead_image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.2, 0.2)
+        end
     end
 
     def collect_star(stars)
