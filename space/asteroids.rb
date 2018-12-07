@@ -85,7 +85,6 @@ class Asteroids < Gosu::Window
             end
             @count = 0
         end
-        
     end
     
     def draw
