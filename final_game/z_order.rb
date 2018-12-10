@@ -1,6 +1,7 @@
 module ZOrder
 
     BACKGROUND = 0
-    PLAYER = 1
+    ENEMIES    = 1
+    PLAYER     = 2
 
 end

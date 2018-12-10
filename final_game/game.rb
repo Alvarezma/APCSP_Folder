@@ -1,6 +1,7 @@
 require "gosu"
 require "./z_order"
 require "./player"
+require "./bat"
 
 class Asteroids < Gosu::Window
 
@@ -12,20 +13,32 @@ class Asteroids < Gosu::Window
 
         @player = Player.new
         @player.teleport(800, 400)
+
+        @bats = []
+
+        @max_bats = 1
+
+        @max_bats.times do |i|
+            @bats.push(Bat.new)
+        end
     end
 
     def update
         if Gosu.button_down?(Gosu::KB_LEFT)
-            @player.turn_left
+            @player.move_left
         end
         if Gosu.button_down?(Gosu::KB_RIGHT)
-            @player.turn_right
+            @player.move_right
         end
         if Gosu.button_down?(Gosu::KB_UP)
-            @player.forewards
+            @player.move_up
         end
         if Gosu.button_down?(Gosu::KB_DOWN)
-            @player.backwards
+            @player.move_down
+        end
+
+        @bats.each do |bat|
+            bat.move(@player)
         end
 
         @player.move
@@ -34,6 +47,10 @@ class Asteroids < Gosu::Window
     def draw
         @background_image.draw(0, 0, ZOrder::BACKGROUND, 1, 1)
         @player.draw
+
+        @bats.each do |bat|
+            bat.draw
+        end
     end
 
 end
