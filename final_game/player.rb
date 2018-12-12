@@ -42,8 +42,8 @@ class Player
         if @x < 0
             @x = 0
         end
-        if @y > 1600
-            @y = 1600
+        if @y > 800
+            @y = 800
         end
         if @y < 0
             @y = 0

@@ -31,30 +31,28 @@ class Bat
             @x %= 1600
             @y %= 800
         elsif @seeker
-            if @x < player.x
+            if @x < player.x - 5
                 @x += @speed
-            elsif @x > player.x
+            elsif @x > player.x + 5
                 @x -= @speed
             end
-            if @y < player.y
+            if @y < player.y - 5
                 @y += @speed
-            elsif @y > player.y
+            elsif @y > player.y + 5
                 @y -= @speed
             end
         end
     end
     
     def update
-        # @type = rand(2)
-        # if @type == 0
-        #     @seeker = true
-        #     @wanderer = false
-        # else @type == 1
-        #     @wanderer = true
-        #     @seeker = false
-        # end
-        @seeker = true
-        @wanderer = false
+        @type = rand(2)
+        if @type == 0
+            @seeker = true
+            @wanderer = false
+        else @type == 1
+            @wanderer = true
+            @seeker = false
+        end
         @x = 1600
         @y = rand * 800
         @angle = rand * 360

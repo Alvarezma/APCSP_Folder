@@ -16,7 +16,7 @@ class Asteroids < Gosu::Window
 
         @bats = []
 
-        @max_bats = 1
+        @max_bats = 10
 
         @max_bats.times do |i|
             @bats.push(Bat.new)
