@@ -3,12 +3,15 @@ require "./z_order"
 
 class Player
 
-    attr_reader :x, :y
+    attr_reader :x, :y, :alive, :score
 
     def initialize
         @image = Gosu::Image.new("media/light_ball.png")
+        @dead_image = Gosu::Image.new("media/black_hole.png")
+        @implode = Gosu::Sample.new("media/killed_sound.wav")
         @x = @y = @velocity_x = @velocity_y = @angle = 0.0
         @score = 0
+        @alive = true
     end
 
     def teleport(x, y)
@@ -54,8 +57,33 @@ class Player
         @velocity_y *= 0.95
     end
 
-    def draw
-        @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.1, 0.1)
+    def up_score
+        @score += 1
     end
+
+    def draw
+        if @alive
+            @image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.1, 0.1)
+        else
+            @dead_image.draw_rot(@x, @y, ZOrder::PLAYER, @angle, 0.5, 0.5, 0.3, 0.3)
+        end
+    end
+
+    def hit_enemy(blobs, bats)
+        blobs.each do |blob|
+            if Gosu.distance(@x, @y, blob.x, blob.y) < 50
+                @implode.play
+                @alive = false
+            end
+        end
+        bats.each do |bat|
+            if Gosu.distance(@x, @y, bat.x, bat.y) < 50
+                @implode.play
+                @alive = false
+            end
+        end
+    end
+
+
 
 end

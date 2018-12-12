@@ -100,7 +100,7 @@ class Asteroids < Gosu::Window
 
         if @stars.length == 0
             @win_image.draw(544, 144, ZOrder::UI)
-            @font.draw("Final Score: #{@player.score}", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
+            @font.draw("Final Score: #{@player.score}\nPress space to play again", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
         elsif @player.alive == false
             @lose_image.draw(648, 265, ZOrder::UI)
             @font.draw("Final Score: #{@player.score}\nPress space to restart", 715, 460, ZOrder::UI, 1.5, 1.5, Gosu::Color::WHITE)
