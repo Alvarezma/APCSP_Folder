@@ -1,17 +1,18 @@
 require "gosu"
 require "./z_order"
 
-class Player
+class Projectile
 
     attr_reader :x, :y
 
     def initialize
         @image = Gosu::Image.new("media/shot_blast.png")
+        @shot = Gosu::Sample.new("media/shooting.wav")
         @implode = Gosu::Sample.new("media/killed_sound.wav")
         @x = @y = -200
         @velocity_x = @velocity_y = 0.0
         @fired = false
-        @scale = 1
+        @scale = 0.2
     end
 
     def teleport(x, y)
@@ -20,23 +21,39 @@ class Player
     end
 
     def shot_left(x, y)
-        @velocity_x = -5
-        @fired = true
+        if !@fired
+            @velocity_x = -5
+            @fired = true
+            teleport(x, y)
+            @shot.play
+        end
     end
     
     def shot_right(x, y)
-        @velocity_x = 5
-        @fired = true
+        if !@fired
+            @velocity_x = 5
+            @fired = true
+            teleport(x, y)
+            @shot.play
+        end
     end
 
     def shot_up(x, y)
-        @velocity_y = -5
-        @fired = true
+        if !@fired
+            @velocity_y = -5
+            @fired = true
+            teleport(x, y)
+            @shot.play
+        end
     end
     
     def shot_down(x, y)
-        @velocity_y = 5
-        @fired = true
+        if !@fired
+            @velocity_y = 5
+            @fired = true
+            teleport(x, y)
+            @shot.play
+        end
     end
 
     def move
@@ -68,6 +85,7 @@ class Player
             if Gosu.distance(@x, @y, blob.x, blob.y) < 50
                 true
                 reload
+                @implode.play
             else
                 false
             end
@@ -76,6 +94,7 @@ class Player
             if Gosu.distance(@x, @y, bat.x, bat.y) < 50
                 true
                 reload
+                @implode.play
             else
                 false
             end

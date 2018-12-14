@@ -14,6 +14,13 @@ class Player
         @alive = true
     end
 
+    def restart
+        @score = 0
+        @alive = true
+        @velocity_x = @velocity_y = @angle = 0.0
+        teleport(800, 400)
+    end
+
     def teleport(x, y)
         @x = x
         @y = y

@@ -1,6 +1,7 @@
 require "gosu"
 require "./z_order"
 require "./player"
+require "./projectile"
 require "./blob"
 require "./bat"
 
@@ -15,6 +16,7 @@ class Final_Game < Gosu::Window
 
         @player = Player.new
         @player.teleport(800, 400)
+        @projectile = Projectile.new
 
         @bats = []
 
@@ -41,6 +43,18 @@ class Final_Game < Gosu::Window
             end
             if Gosu.button_down?(Gosu::KB_DOWN)
                 @player.move_down
+            end
+            if Gosu.button_down?(Gosu::KB_A)
+                @projectile.shot_left(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_D)
+                @projectile.shot_right(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_W)
+                @projectile.shot_up(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_S)
+                @projectile.shot_down(@player.x, @player.y)
             end
 
             
@@ -70,6 +84,8 @@ class Final_Game < Gosu::Window
             
             @player.move
             @player.hit_enemy(@blobs, @bats)
+            @projectile.move
+            @projectile.kill_enemy(@blobs, @bats)
 
             @blobs.each do |blob|
                 blob.move()
@@ -81,7 +97,21 @@ class Final_Game < Gosu::Window
 
             @counter += 1
 
+        elsif Gosu.button_down?(Gosu::KB_SPACE)
+
+            @player.restart
+            @bats = []
+            @blobs = []
+            @bats = []
             
+            @max_bats = 1
+            
+            @blobs = []
+            
+            @max_blobs = 2
+            
+            @level = 1
+            @count = 0
         end
 
     end
@@ -89,6 +119,8 @@ class Final_Game < Gosu::Window
     def draw
         @background_image.draw(0, 0, ZOrder::BACKGROUND, 1, 1)
         @player.draw
+        
+        @projectile.draw
 
         @blobs.each do |blob|
             blob.draw
@@ -98,7 +130,12 @@ class Final_Game < Gosu::Window
             bat.draw
         end
 
-        @font.draw("Score: #{@player.score}, Level test: #{@level},blobs: #{@max_blobs}, bats: #{@max_bats}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        # @font.draw("Score: #{@player.score}, Level test: #{@level},blobs: #{@max_blobs}, bats: #{@max_bats}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        if @player.alive == false
+            @font.draw("Final Score: #{@player.score}\nPress Space to play again", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        else
+            @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        end
     end
 
 end
