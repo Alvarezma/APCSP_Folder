@@ -2,7 +2,8 @@ module ZOrder
 
     BACKGROUND = 0
     ENEMIES    = 1
-    PLAYER     = 2
-    UI         = 3
+    PROJECTILE = 2
+    PLAYER     = 3
+    UI         = 4
 
 end

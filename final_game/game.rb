@@ -18,21 +18,13 @@ class Final_Game < Gosu::Window
 
         @bats = []
 
-        @max_bats = 0
-
-        @max_bats.times do |i|
-            @bats.push(Bat.new)
-        end
+        @max_bats = 1
 
         @blobs = []
 
-        @max_blobs = 10
-
-        @max_blobs.times do |i|
-            @blobs.push(Blob.new)
-        end
+        @max_blobs = 2
         
-        @level = 0
+        @level = 1
         @counter = 0
     end
 
@@ -54,19 +46,27 @@ class Final_Game < Gosu::Window
             
             if @counter % 10 == 0
                 @player.up_score
-            end
-            
-            if @player.score % 100 == 0
-                @level += 1
-                @max_blobs = @level * 2
-                @max_bats = @level
-            end
 
-            if @player.score % 25 == 0
-                if @blobs.length < @max_blobs
+                if @player.score % 100 == 0
+                    @level += 1
+                    @max_blobs = @level * 2
+                    @max_bats = @level
+                end
 
+                if @player.score % 25 == 0
+                    if @blobs.length < @max_blobs
+                        @blobs.push(Blob.new)
+                    end
+                end
+
+                if @player.score % 50 == 0
+                    if @bats.length < @max_bats
+                        @bats.push(Bat.new)
+                    end
                 end
             end
+            
+            
             
             @player.move
             @player.hit_enemy(@blobs, @bats)
@@ -98,7 +98,7 @@ class Final_Game < Gosu::Window
             bat.draw
         end
 
-        @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        @font.draw("Score: #{@player.score}, Level test: #{@level},blobs: #{@max_blobs}, bats: #{@max_bats}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
     end
 
 end
