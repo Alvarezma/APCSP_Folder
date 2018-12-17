@@ -27,6 +27,8 @@ class Final_Game < Gosu::Window
         @max_blobs = 2
         
         @level = 1
+        @blob_respawn = 100 / @max_blobs
+        @bat_respawn = 100 / @max_bats
         @counter = 0
     end
 
@@ -65,15 +67,17 @@ class Final_Game < Gosu::Window
                     @level += 1
                     @max_blobs = @level * 2
                     @max_bats = @level
+                    @blob_respawn = 100 / @max_blobs
+                    @bat_respawn = 100 / @max_bats
                 end
 
-                if @player.score % 25 == 0
+                if @player.score % @blob_respawn == 0
                     if @blobs.length < @max_blobs
                         @blobs.push(Blob.new)
                     end
                 end
 
-                if @player.score % 50 == 0
+                if @player.score % @bat_respawn == 0
                     if @bats.length < @max_bats
                         @bats.push(Bat.new)
                     end
@@ -100,8 +104,7 @@ class Final_Game < Gosu::Window
         elsif Gosu.button_down?(Gosu::KB_SPACE)
 
             @player.restart
-            @bats = []
-            @blobs = []
+            @projectile.reload
             @bats = []
             
             @max_bats = 1
@@ -111,7 +114,9 @@ class Final_Game < Gosu::Window
             @max_blobs = 2
             
             @level = 1
-            @count = 0
+            @blob_respawn = 100 / @max_blobs
+            @bat_respawn = 100 / @max_bats
+            @counter = 0
         end
 
     end
@@ -131,10 +136,14 @@ class Final_Game < Gosu::Window
         end
 
         # @font.draw("Score: #{@player.score}, Level test: #{@level},blobs: #{@max_blobs}, bats: #{@max_bats}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
-        if @player.alive == false
-            @font.draw("Final Score: #{@player.score}\nPress Space to play again", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+        if @player.alive
+            @font.draw("Level: #{@level}\nScore: #{@player.score}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::RED)
         else
-            @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 2.0, 2.0, Gosu::Color::YELLOW)
+            @font.draw("Final Level: #{@level}\nFinal Score: #{@player.score}\nPress Space to play again", 600, 300, ZOrder::UI, 2.0, 2.0, Gosu::Color::RED)
+        end
+
+        if @player.score < 50
+            @font.draw("Controls: WASD to shoot and Arrow Keys to move\nGOOD LUCK!", 450, 300, ZOrder::UI, 2.0, 2.0, Gosu::Color::RED)
         end
     end
 

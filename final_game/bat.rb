@@ -13,6 +13,7 @@ class Bat
 
     def initialize
         @image = Gosu::Image.new("media/bat.png")
+        @spawn_point = rand(4)
         update
         @scale = 0.08
     end
@@ -37,9 +38,20 @@ class Bat
     end
     
     def update
-        @x = 1600
-        @y = rand * 800
-        @speed = rand * 5
+        if @spawn_point == 0
+            @x = 1600 * rand
+            @y = -50
+        elsif @spawn_point == 1
+            @x = 1600 * rand
+            @y = 850
+        elsif @spawn_point == 2
+            @x = -50
+            @y = 800 * rand
+        elsif @spawn_point == 3
+            @x = 1650
+            @y = 800 * rand
+        end
+        @speed = (rand * 4) + 1
     end
 
 end

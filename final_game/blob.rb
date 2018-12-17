@@ -48,8 +48,8 @@ class Blob
             @y = 800 * rand
         end
         @angle = rand * 360
-        @velocity_x = Gosu.offset_x(@angle, rand * 5)
-        @velocity_y = Gosu.offset_y(@angle, rand * 5)
+        @velocity_x = Gosu.offset_x(@angle, (rand * 4) + 1)
+        @velocity_y = Gosu.offset_y(@angle, (rand * 4) + 1)
     end
 
 end

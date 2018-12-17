@@ -102,5 +102,4 @@ class Projectile
     end
 
 
-
 end
