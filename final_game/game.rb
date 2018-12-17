@@ -46,6 +46,20 @@ class Final_Game < Gosu::Window
             if Gosu.button_down?(Gosu::KB_DOWN)
                 @player.move_down
             end
+
+            if Gosu.button_down?(Gosu::KB_W) && Gosu.button_down?(Gosu::KB_A)
+                @projectile.shot_up_left(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_S) && Gosu.button_down?(Gosu::KB_A)
+                @projectile.shot_down_left(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_W) && Gosu.button_down?(Gosu::KB_D)
+                @projectile.shot_up_right(@player.x, @player.y)
+            end
+            if Gosu.button_down?(Gosu::KB_S) && Gosu.button_down?(Gosu::KB_D)
+                @projectile.shot_down_right(@player.x, @player.y)
+            end
+
             if Gosu.button_down?(Gosu::KB_A)
                 @projectile.shot_left(@player.x, @player.y)
             end
@@ -143,7 +157,7 @@ class Final_Game < Gosu::Window
         end
 
         if @player.score < 50
-            @font.draw("Controls: WASD to shoot and Arrow Keys to move\nGOOD LUCK!", 450, 300, ZOrder::UI, 2.0, 2.0, Gosu::Color::RED)
+            @font.draw("Controls: WASD to shoot(diagonal or straight)\nArrow Keys to move\nGOOD LUCK!", 450, 300, ZOrder::UI, 2.0, 2.0, Gosu::Color::RED)
         end
     end
 

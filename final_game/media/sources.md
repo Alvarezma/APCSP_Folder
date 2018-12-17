@@ -16,9 +16,6 @@ https://wall.alphacoders.com/big.php?i=760914
 - projectile image
 https://www.freeiconspng.com/images/fire-blue-png
 
-- enemies dead image
-https://www.freeiconspng.com/images/smoke-png
-
 - shooting sounds
 http://soundbible.com/998-Sweep-Kick.html
 
