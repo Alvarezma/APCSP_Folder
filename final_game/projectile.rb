@@ -20,62 +20,16 @@ class Projectile
         @y = y
     end
 
-    def shot_left(x, y)
+    def shot(x, y, dir_x, dir_y)
         if !@fired
-            @velocity_x = -5
-            fire(x, y)
-        end
-    end
-    
-    def shot_right(x, y)
-        if !@fired
-            @velocity_x = 5
-            fire(x, y)
-        end
-    end
-
-    def shot_up(x, y)
-        if !@fired
-            @velocity_y = -5
-            fire(x, y)
-        end
-    end
-    
-    def shot_down(x, y)
-        if !@fired
-            @velocity_y = 5
-            fire(x, y)
-        end
-    end
-
-    def shot_up_right(x, y)
-        if !@fired
-            @velocity_x = Math.sqrt(12.5)
-            @velocity_y = -Math.sqrt(12.5)
-            fire(x, y)
-        end
-    end
-
-    def shot_down_right(x, y)
-        if !@fired
-            @velocity_x = Math.sqrt(12.5)
-            @velocity_y = Math.sqrt(12.5)
-            fire(x, y)
-        end
-    end
-
-    def shot_up_left(x, y)
-        if !@fired
-            @velocity_x = -Math.sqrt(12.5)
-            @velocity_y = -Math.sqrt(12.5)
-            fire(x, y)
-        end
-    end
-
-    def shot_down_left(x, y)
-        if !@fired
-            @velocity_x = -Math.sqrt(12.5)
-            @velocity_y = Math.sqrt(12.5)
+            if dir_x == 0
+                @velocity_y = 5 * dir_y
+            elsif dir_y == 0
+                @velocity_x = 5 * dir_x
+            elsif dir_x != 0 && dir_y != 0
+                @velocity_x = Math.sqrt(12.5) * dir_x
+                @velocity_y = Math.sqrt(12.5) * dir_y
+            end
             fire(x, y)
         end
     end

@@ -48,29 +48,29 @@ class Final_Game < Gosu::Window
             end
 
             if Gosu.button_down?(Gosu::KB_W) && Gosu.button_down?(Gosu::KB_A)
-                @projectile.shot_up_left(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, -1, -1)
             end
             if Gosu.button_down?(Gosu::KB_S) && Gosu.button_down?(Gosu::KB_A)
-                @projectile.shot_down_left(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, -1, 1)
             end
             if Gosu.button_down?(Gosu::KB_W) && Gosu.button_down?(Gosu::KB_D)
-                @projectile.shot_up_right(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, 1, -1)
             end
             if Gosu.button_down?(Gosu::KB_S) && Gosu.button_down?(Gosu::KB_D)
-                @projectile.shot_down_right(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, 1, 1)
             end
 
             if Gosu.button_down?(Gosu::KB_A)
-                @projectile.shot_left(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, -1, 0)
             end
             if Gosu.button_down?(Gosu::KB_D)
-                @projectile.shot_right(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, 1, 0)
             end
             if Gosu.button_down?(Gosu::KB_W)
-                @projectile.shot_up(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, 0, -1)
             end
             if Gosu.button_down?(Gosu::KB_S)
-                @projectile.shot_down(@player.x, @player.y)
+                @projectile.shot(@player.x, @player.y, 0, 1)
             end
 
             
